@@ -1,0 +1,40 @@
+.contenido {
+    --background: #fff url('../../assets/img/background-manager.png')  no-repeat center center / cover;
+}
+
+.div-form {
+    position: absolute ;
+    width: 85%;
+    background-color: rgba(255, 255, 255, 0.6);
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translate(-50%, -20%);
+    transform: translate(-50%, -20%);
+    border-radius: 15px;
+    margin-top: 5%;
+    padding: 25px 15px;
+    justify-content: center !important;
+}
+
+.div-botonera {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.btn-biometric {
+    width: 112px;
+    height: 112px;
+}
+
+.ico {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px;
+    
+    ion-icon {
+        font-size: 40pt;
+        margin-bottom: 5px;
+    }
+}
+

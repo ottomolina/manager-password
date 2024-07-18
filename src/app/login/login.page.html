@@ -1,0 +1,18 @@
+<ion-content class="contenido" [fullscreen]="true">
+  
+  <div class="div-form">
+    <div class="div-botonera">
+      <ion-button class="btn-biometric"
+                  color="light"
+                  shape="round"
+                  [disabled]="deshabilitar"
+                  (click)="clickHuella()">
+        <div class="ico">
+          <ion-icon slot="start" name="finger-print-outline"></ion-icon>
+          <ion-label>Huella</ion-label>
+        </div>
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>
