@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="custom-header">
+    <ion-title>Gestor de contraseñas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p class="texto-informativo">El Gestor de contraseñas guarda los nombres de usuario y clave. Estos datos solo se almacenan en el dispositivo.</p>
+  <ion-list-header>
+    <ion-label>Cuentas</ion-label>
+  </ion-list-header>
+  <ion-list>
+    <ion-item *ngIf="lista.length === 0" lines="none">
+      <ion-label>
+        <ion-note>Aún no tienes contraseñas almacenadas.</ion-note>
+      </ion-label>
+    </ion-item>
+    <ion-item button detail="false" *ngFor="let item of lista">
+      <ion-icon aria-hidden="true" name="key-outline" slot="start"></ion-icon>
+      <ion-label>
+        <strong>{{item.sitio}}</strong>
+        <ion-note>{{item.usuario}}</ion-note>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

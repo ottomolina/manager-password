@@ -1,0 +1,32 @@
+
+.custom-header {
+    --color: #fff;
+    --background: #003544;
+}
+
+.texto-informativo {
+    padding: 0 15px;
+    font-size: small;
+    text-align: center;
+}
+
+ion-content {
+    --background: #f2f3f5;
+}
+
+ion-list {
+    margin: 0 10px;
+    border-radius: 10px;
+    padding: 7px 10px;
+}
+
+ion-label strong {
+    display: block;
+    max-width: calc(100% - 60px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+  
+ion-label ion-note {
+    font-size: 0.9rem;
+}
