@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import * as CONSTANSTS from './storage.constants';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { ClaveModel } from 'src/app/models/clave.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +39,15 @@ export class StorageService {
   get login() {
     const login = sessionStorage.getItem(CONSTANSTS.LOGIN);
     return Boolean(login);
+  }
+
+  public obtenerClaves() {
+    const item = localStorage.getItem(CONSTANSTS.LISTA);
+    const lista: Array<ClaveModel> = item ? JSON.parse(item) : [];
+    return new Observable<Array<ClaveModel>>(observer => {
+      observer.next(lista);
+      observer.complete();
+    });
   }
 
 }
