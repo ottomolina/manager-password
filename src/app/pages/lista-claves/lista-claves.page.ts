@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage/storage.service';
 import { AppService } from 'src/app/util/app.service';
 import { ClaveModel } from 'src/app/models/clave.model';
+import { NavigationService } from 'src/app/util/navigation.service';
 
 @Component({
   selector: 'app-lista-claves',
@@ -13,13 +14,14 @@ export class ListaClavesPage implements OnInit {
 
   constructor(
     private app: AppService,
-    private storage: StorageService
+    private storage: StorageService,
+    private nav: NavigationService,
   ) { }
 
   async ngOnInit() {
     try {
       await this.app.loader();
-      this.storage.obtenerClaves().subscribe(result => {
+      this.storage.obtenerClaves().then(result => {
         this.app.dismissLoader();
         this.lista = result;
         console.log('lista', result);
@@ -28,6 +30,17 @@ export class ListaClavesPage implements OnInit {
       this.app.dismissLoader();
       console.error('error', error);
     }
+  }
+
+  ionViewDidEnter() {
+    if(this.nav.data?.actualizar) {
+      this.nav.data = null;
+      this.ngOnInit();
+    }
+  }
+
+  public agregarClave() {
+    this.nav.navigateForward('add-clave');
   }
 
 }

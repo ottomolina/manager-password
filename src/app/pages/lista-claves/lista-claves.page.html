@@ -1,11 +1,17 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="custom-header">
     <ion-title>Gestor de contraseñas</ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-button (click)="agregarClave()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <p class="texto-informativo">El Gestor de contraseñas guarda los nombres de usuario y clave. Estos datos solo se almacenan en el dispositivo.</p>
+  <p class="texto-informativo">El Gestor de contraseñas guarda los nombres de usuario y contraseña. Estos datos solo se almacenan en el dispositivo.</p>
   <ion-list-header>
     <ion-label>Cuentas</ion-label>
   </ion-list-header>
