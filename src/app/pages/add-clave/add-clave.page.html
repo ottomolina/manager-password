@@ -1,0 +1,65 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="custom-header">
+    <ion-buttons slot="start">
+      <ion-button (click)="regresar()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Nueva contraseña</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="guardar()">
+        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <app-skeleton [cargando]="cargando"></app-skeleton>
+
+  <form [formGroup]="app.form" *ngIf="!cargando">
+    <ion-item>
+      <ion-input [type]="'text'"
+                 [label]="'Sitio*:'"
+                 [labelPlacement]="'floating'"
+                 formControlName="sitio"
+                 [placeholder]="'Nombre del sitio web o aplicación.'">
+      </ion-input>
+    </ion-item>
+    <ion-note>Ingresa el nombre del sitio web o aplicación de tu contraseña.</ion-note>
+    <app-error-form *ngIf="submitted && app.hasErrorFormControl('sitio')"
+                    [mensaje]="app.getErrorFormControl('sitio')">
+    </app-error-form>
+    
+    <ion-item>
+      <ion-input [type]="'text'"
+                 [label]="'Usuario*:'"
+                 [labelPlacement]="'floating'"
+                 formControlName="usuario"
+                 [placeholder]="'Usuario de tu contraseña.'">
+      </ion-input>
+    </ion-item>
+    <ion-note>Ingresa el nombre de usuario del sitio web o aplicación.</ion-note>
+    <app-error-form *ngIf="submitted && app.hasErrorFormControl('usuario')"
+                    [mensaje]="app.getErrorFormControl('usuario')">
+    </app-error-form>
+
+    <ion-item>
+      <ion-input [type]="'password'"
+                 [label]="'Contraseña*:'"
+                 [labelPlacement]="'floating'"
+                 formControlName="offset"
+                 [placeholder]="'Contraseña del sitio web o aplicación.'">
+      </ion-input>
+    </ion-item>
+    <ion-note>Ingresa la contraseña del sitio web o aplicación.</ion-note>
+    <app-error-form *ngIf="submitted && app.hasErrorFormControl('offset')"
+                    [mensaje]="app.getErrorFormControl('offset')">
+    </app-error-form>
+    
+    <ion-item>
+      <ion-toggle formControlName="otro">Agregar otra?</ion-toggle>
+    </ion-item>
+    <ion-note>Si lo habilitas permanecerás en esta vista después de guardar.</ion-note>
+  </form>
+</ion-content>
