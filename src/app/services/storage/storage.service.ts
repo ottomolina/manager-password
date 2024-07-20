@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import * as CONSTANSTS from './storage.constants';
+import * as CONSTANTS from './storage.constants';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { ClaveModel } from 'src/app/models/clave.model';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +23,7 @@ export class StorageService {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const login = sessionStorage.getItem(CONSTANSTS.LOGIN);
+    const login = sessionStorage.getItem(CONSTANTS.LOGIN);
     if(login === null || login === undefined || login === '' || !login) {
       this.router.navigate(['/login']);
       return false;
@@ -33,21 +32,30 @@ export class StorageService {
 }
 
   set login(login: boolean) {
-    sessionStorage.setItem(CONSTANSTS.LOGIN, JSON.stringify(login));
+    sessionStorage.setItem(CONSTANTS.LOGIN, JSON.stringify(login));
   }
 
   get login() {
-    const login = sessionStorage.getItem(CONSTANSTS.LOGIN);
+    const login = sessionStorage.getItem(CONSTANTS.LOGIN);
     return Boolean(login);
   }
 
-  public obtenerClaves() {
-    const item = localStorage.getItem(CONSTANSTS.LISTA);
-    const lista: Array<ClaveModel> = item ? JSON.parse(item) : [];
-    return new Observable<Array<ClaveModel>>(observer => {
-      observer.next(lista);
-      observer.complete();
-    });
+  public async agregarClave(clave: ClaveModel) {
+    let lista: Array<ClaveModel> = await this.obtenerClaves();
+    clave.id = (lista.length + 1);
+    lista = [ ...lista, clave ];
+    await this._storage.set(CONSTANTS.LISTA, lista);
+  }
+
+  public async obtenerClaves(): Promise<Array<ClaveModel>> {
+    const item: Array<ClaveModel> = await this._storage.get(CONSTANTS.LISTA);
+    return item ? item : [];
+  };
+
+  public async obtenerClave(id: number): Promise<ClaveModel | undefined> {
+    const lista: Array<ClaveModel> = await this._storage.get(CONSTANTS.LISTA);
+    const item = lista.find(item => item.id == id);
+    return item;
   }
 
 }
