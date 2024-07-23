@@ -16,6 +16,7 @@ export class AddClavePage implements OnInit {
   public submitted: boolean;
   public clave: ClaveModel | undefined;
   public titulo: string = 'Nueva contraseña';
+  public showPassword: boolean;
 
   constructor(
     public app: AppService,

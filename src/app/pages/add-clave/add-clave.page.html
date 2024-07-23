@@ -45,12 +45,17 @@
     </app-error-form>
 
     <ion-item>
-      <ion-input [type]="'password'"
+      <ion-input [type]="showPassword ? 'text' : 'password'"
+                 [clearOnEdit]="false"
                  [label]="'Contraseña*:'"
                  [labelPlacement]="'floating'"
                  formControlName="offset"
                  [placeholder]="'Contraseña del sitio web o aplicación.'">
       </ion-input>
+      <ion-icon name="{{showPassword ? 'eye-off-outline' : 'eye-outline'}}"
+                slot="end"
+                (click)="showPassword = !showPassword">
+      </ion-icon>
     </ion-item>
     <ion-note>Ingresa la contraseña del sitio web o aplicación.</ion-note>
     <app-error-form *ngIf="submitted && app.hasErrorFormControl('offset')"
