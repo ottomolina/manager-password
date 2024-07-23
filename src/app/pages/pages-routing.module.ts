@@ -11,6 +11,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'lista-claves', pathMatch: 'prefix' },
       { path: 'lista-claves', loadChildren: () => import('./lista-claves/lista-claves.module').then( m => m.ListaClavesPageModule) },
       { path: 'add-clave', loadChildren: () => import('./add-clave/add-clave.module').then( m => m.AddClavePageModule) },
+      { path: 'add-clave/:id', loadChildren: () => import('./add-clave/add-clave.module').then( m => m.AddClavePageModule) },
     ]
   }
 ];

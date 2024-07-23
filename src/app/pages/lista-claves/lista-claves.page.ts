@@ -43,4 +43,8 @@ export class ListaClavesPage implements OnInit {
     this.nav.navigateForward('add-clave');
   }
 
+  public editarClave({id}: ClaveModel) {
+    this.nav.navigateForward(`add-clave/${id}`);
+  }
+
 }

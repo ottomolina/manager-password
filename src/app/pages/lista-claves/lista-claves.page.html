@@ -21,7 +21,7 @@
         <ion-note>Aún no tienes contraseñas almacenadas.</ion-note>
       </ion-label>
     </ion-item>
-    <ion-item button detail="false" *ngFor="let item of lista">
+    <ion-item button detail="false" *ngFor="let item of lista" (click)="editarClave(item)">
       <ion-icon aria-hidden="true" name="key-outline" slot="start"></ion-icon>
       <ion-label>
         <strong>{{item.sitio}}</strong>

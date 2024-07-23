@@ -53,9 +53,20 @@ export class StorageService {
   };
 
   public async obtenerClave(id: number): Promise<ClaveModel | undefined> {
-    const lista: Array<ClaveModel> = await this._storage.get(CONSTANTS.LISTA);
+    const lista: Array<ClaveModel> = await this.obtenerClaves();
     const item = lista.find(item => item.id == id);
     return item;
   }
+
+  public async actualizarClave(clave: ClaveModel) {
+    const items: Array<ClaveModel> = await this.obtenerClaves();
+    const index = items.findIndex(e => e.id == clave.id);
+    const lista = [
+        ...items.slice(0, index),
+        clave,
+        ...items.slice(index+1)
+    ];
+    await this._storage.set(CONSTANTS.LISTA, lista);
+}
 
 }

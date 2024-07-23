@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Nueva contraseña</ion-title>
+    <ion-title>{{titulo}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="guardar()">
         <ion-icon slot="icon-only" name="checkmark"></ion-icon>
@@ -57,9 +57,9 @@
                     [mensaje]="app.getErrorFormControl('offset')">
     </app-error-form>
     
-    <ion-item>
+    <ion-item *ngIf="!clave">
       <ion-toggle formControlName="otro">Agregar otra?</ion-toggle>
     </ion-item>
-    <ion-note>Si lo habilitas permanecerás en esta vista después de guardar.</ion-note>
+    <ion-note *ngIf="!clave">Si lo habilitas permanecerás en esta vista después de guardar.</ion-note>
   </form>
 </ion-content>
