@@ -47,4 +47,24 @@ export class ListaClavesPage implements OnInit {
     this.nav.navigateForward(`add-clave/${id}`);
   }
 
+  public eliminar(item: ClaveModel) {
+    this.app.confirmacion('Se eliminará el registro de esta contraseña. ¿Estás seguro de realizar esta acción?', () => {
+      this.procesoEliminar(item);
+    });
+  }
+
+  private async procesoEliminar(item: ClaveModel) {
+    try {
+      await this.app.loader();
+      await this.storage.eliminarClave(item);
+      this.app.toast(`Registro eliminado exitosamente!`, undefined, 2000);
+      this.ngOnInit();
+    } catch(error) {
+      console.log('error', error);
+      this.app.alert('Ocurrió un error al realizar esta acción, inténtalo más tarde.')
+    } finally {
+      await this.app.dismissLoader();
+    }
+  }
+
 }

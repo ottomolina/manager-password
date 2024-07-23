@@ -21,12 +21,18 @@
         <ion-note>Aún no tienes contraseñas almacenadas.</ion-note>
       </ion-label>
     </ion-item>
-    <ion-item button detail="false" *ngFor="let item of lista" (click)="editarClave(item)">
-      <ion-icon aria-hidden="true" name="key-outline" slot="start"></ion-icon>
-      <ion-label>
-        <strong>{{item.sitio}}</strong>
-        <ion-note>{{item.usuario}}</ion-note>
-      </ion-label>
-    </ion-item>
+    <ion-item-sliding *ngFor="let item of lista">
+      <ion-item button detail="false" (click)="editarClave(item)">
+        <ion-icon aria-hidden="true" name="key-outline" slot="start"></ion-icon>
+        <ion-label>
+          <strong>{{item.sitio}}</strong>
+          <ion-note>{{item.usuario}}</ion-note>
+        </ion-label>
+      </ion-item>
+      
+      <ion-item-options>
+        <ion-item-option color="danger" (click)="eliminar(item)">Eliminar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
