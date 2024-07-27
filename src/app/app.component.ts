@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SecurityService } from './services/security/security.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(
+    private securityService: SecurityService
+  ) {
+    setTimeout(() => {
+      this.securityService.init();
+    }, 100);
+  }
 }

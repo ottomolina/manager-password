@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ClaveModel } from 'src/app/models/clave.model';
+import { SecurityService } from 'src/app/services/security/security.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { AppService } from 'src/app/util/app.service';
 import { NavigationService } from 'src/app/util/navigation.service';
@@ -24,6 +25,7 @@ export class AddClavePage implements OnInit {
     private formBuilder: FormBuilder,
     private storage: StorageService,
     private route: ActivatedRoute,
+    private securityService: SecurityService,
   ) {
     this.init();
   }
@@ -37,7 +39,7 @@ export class AddClavePage implements OnInit {
       this.app.form = this.formBuilder.group({
         sitio: [this.clave ? this.clave.sitio : '', [Validators.required, Validators.minLength(2), Validators.maxLength(64)]],
         usuario: [this.clave ? this.clave.usuario : '', [Validators.required]],
-        offset: [this.clave ? this.clave.clave : '', [Validators.required]],
+        offset: [this.clave ? this.securityService.decrypt(this.clave.clave) : '', [Validators.required]],
         otro: [false],
       });
       this.clave && this.app.form.get('sitio')?.disable({emitEvent: false});
@@ -52,7 +54,7 @@ export class AddClavePage implements OnInit {
     this.nav.back();
   }
 
-  private obtenerItem() {
+  private async obtenerItem() {
     const { sitio, usuario, offset: clave } = this.app.form.value;
     if(this.clave && (
       this.clave.sitio === sitio.trim() &&
@@ -64,7 +66,13 @@ export class AddClavePage implements OnInit {
     } else if(!this.app.form.valid) {
       return undefined;
     }
-    const item: ClaveModel = { sitio: sitio.trim(), usuario: usuario.trim(), clave: clave.trim() };
+
+    const claveEncrypted = this.securityService.encrypt(clave.trim());
+    if(!claveEncrypted) {
+      await this.app.toast('Ocurrió un error al guardar el registro [código: 11002].');
+      return undefined;
+    }
+    const item: ClaveModel = { sitio: sitio.trim(), usuario: usuario.trim(), clave: claveEncrypted };
     if(this.clave) {
       item.id = this.clave.id;
     }
@@ -84,7 +92,7 @@ export class AddClavePage implements OnInit {
 
   public async guardar() {
     this.submitted = true;
-    const item = this.obtenerItem();
+    const item = await this.obtenerItem();
     if(!item) {
       return;
     }
@@ -115,7 +123,7 @@ export class AddClavePage implements OnInit {
       }
     } catch(err: any) {
       console.error('error', err);
-      this.app.alert('Ocurrió un error al guardar el registro.');
+      this.app.alert('Ocurrió un error al guardar el registro [código 11001].');
     } finally {
       await this.app.dismissLoader();
     }

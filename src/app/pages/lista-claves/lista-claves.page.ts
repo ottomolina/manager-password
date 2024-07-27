@@ -24,7 +24,6 @@ export class ListaClavesPage implements OnInit {
       this.storage.obtenerClaves().then(result => {
         this.app.dismissLoader();
         this.lista = result;
-        console.log('lista', result);
       });
     } catch(error) {
       this.app.dismissLoader();
@@ -60,7 +59,7 @@ export class ListaClavesPage implements OnInit {
       this.app.toast(`Registro eliminado exitosamente!`, undefined, 2000);
       this.ngOnInit();
     } catch(error) {
-      console.log('error', error);
+      console.error('error', error);
       this.app.alert('Ocurrió un error al realizar esta acción, inténtalo más tarde.')
     } finally {
       await this.app.dismissLoader();
