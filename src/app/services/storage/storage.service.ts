@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import * as CONSTANTS from './storage.constants';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { ClaveModel } from 'src/app/models/clave.model';
+import { PksKv } from '../security/pkskv.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,15 @@ export class StorageService {
   get login() {
     const login = sessionStorage.getItem(CONSTANTS.LOGIN);
     return Boolean(login);
+  }
+
+  public async setPksKv(pkskv: PksKv) {
+    await this._storage.set(CONSTANTS.PKSKV, pkskv);
+  }
+
+  public async getPksKv() {
+    const pkskv: PksKv = await this._storage.get(CONSTANTS.PKSKV);
+    return pkskv;
   }
 
   public async agregarClave(clave: ClaveModel) {
