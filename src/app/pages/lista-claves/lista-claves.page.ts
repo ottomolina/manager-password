@@ -11,6 +11,9 @@ import { NavigationService } from 'src/app/util/navigation.service';
 })
 export class ListaClavesPage implements OnInit {
   public lista: Array<ClaveModel> = [];
+  public listaAux: Array<ClaveModel> = [];
+  public palabra: string = '';
+  public buscando: boolean = false;
 
   constructor(
     private app: AppService,
@@ -24,6 +27,7 @@ export class ListaClavesPage implements OnInit {
       this.storage.obtenerClaves().then(result => {
         this.app.dismissLoader();
         this.lista = result;
+        this.listaAux = result;
       });
     } catch(error) {
       this.app.dismissLoader();
@@ -64,6 +68,17 @@ export class ListaClavesPage implements OnInit {
     } finally {
       await this.app.dismissLoader();
     }
+  }
+
+  public buscar(palabra: string) {
+    this.buscando = palabra.trim() !== '';
+    let listaFiltrada = [...this.listaAux];
+    if(palabra.trim() !== '') {
+      listaFiltrada = listaFiltrada.filter(e =>
+        e.sitio.toLowerCase().indexOf(palabra.toLowerCase()) > -1
+      );
+    }
+    this.lista = listaFiltrada;
   }
 
 }
