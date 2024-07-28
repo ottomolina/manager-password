@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'manager-password',
+  appId: 'com.gt.gestorcontrasenias',
+  appName: 'Gestor Contraseñas',
   webDir: 'www'
 };
 
