@@ -1,0 +1,13 @@
+<ion-searchbar [placeholder]="'Buscar'"
+                inputmode="text"
+                mode="ios"
+                type="text"
+                (ngModelChange)="onChange($event)"
+                (ionFocus)="onFocus()"
+                (blur)="onTouch()"
+                [disabled]="disabled"
+                [placeholder]="placeholder"
+                [(ngModel)]="value"
+                (ionInput)="onInput($event)"
+                >
+</ion-searchbar>
