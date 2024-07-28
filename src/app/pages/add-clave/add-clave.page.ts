@@ -57,11 +57,11 @@ export class AddClavePage implements OnInit {
   private async obtenerItem() {
     const { sitio, usuario, offset: clave } = this.app.form.value;
     if(this.clave && (
-      this.clave.sitio === sitio.trim() &&
+      // this.clave.sitio === sitio.trim() &&
       this.clave.usuario === usuario.trim() &&
-      this.clave.clave === clave.trim()
+      this.securityService.decrypt(this.clave.clave) === clave.trim()
     )) {
-      this.app.toast('Aún no has realizado ningún cambio en el registro.');
+      await this.app.toast('Aún no has realizado ningún cambio en el registro.');
       return undefined;
     } else if(!this.app.form.valid) {
       return undefined;
@@ -72,7 +72,7 @@ export class AddClavePage implements OnInit {
       await this.app.toast('Ocurrió un error al guardar el registro [código: 11002].');
       return undefined;
     }
-    const item: ClaveModel = { sitio: sitio.trim(), usuario: usuario.trim(), clave: claveEncrypted };
+    const item: ClaveModel = { sitio: this.clave ? this.clave.sitio : sitio.trim(), usuario: usuario.trim(), clave: claveEncrypted };
     if(this.clave) {
       item.id = this.clave.id;
     }
